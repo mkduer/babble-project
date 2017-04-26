@@ -5,5 +5,5 @@ Course project requires simulating a chat environment, setting up servers, manag
 ### Babble Chat
 
 ### Documents
-* **Requirements Document**
+* **Requirements Document**  
 overview of client needs, use cases, function/nonfunctional requirements, milestones and deliveries
