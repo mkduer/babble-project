@@ -48,7 +48,11 @@ public class ChatClient {
             BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 
             while(true) {
-                channel.write(in.readLine() + "\r\n");
+                // types message to channels
+                // IMPORTANT: This will only work with flush
+                // whether it is write and flush or writeandflush methods
+                // may not be the most effective approach, but works for now!
+                channel.writeAndFlush("  " + in.readLine() + "\r\n");
             }
 
         // clean-up before closing

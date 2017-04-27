@@ -1,3 +1,7 @@
+/**
+ * Created by michelle on 4/26/17.
+ */
+
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
@@ -5,21 +9,21 @@ import io.netty.channel.group.ChannelGroup;
 import io.netty.channel.group.DefaultChannelGroup;
 import io.netty.util.concurrent.GlobalEventExecutor;
 
-/**
- * Created by michelle on 4/26/17.
- */
 public class ChatServerHandler extends ChannelInboundHandlerAdapter {
 
-    private static final ChannelGroup channels = new DefaultChannelGroup("new-channel", GlobalEventExecutor.INSTANCE);
+    private static final ChannelGroup channels = new DefaultChannelGroup(GlobalEventExecutor.INSTANCE);
 
     @Override
-    // let other clients know that a new client has joined
+    // adds channels and alerts other clients that a new client has arrived
     public void handlerAdded(ChannelHandlerContext ctx) throws Exception {
         Channel incoming = ctx.channel();
         for (Channel channel : channels) {
-            channel.write("[SERVER] - " + incoming.remoteAddress() + " has joined!\n");
+            // print to server
+            System.out.println("[SERVER] - " + incoming.remoteAddress() + " has joined!\n");
+            // print to channel
+            channel.writeAndFlush("[SERVER] - " + incoming.remoteAddress() + " has joined!\n");
         }
-        channels.add(ctx.channel());
+        channels.add(incoming);
     }
 
     @Override
@@ -27,9 +31,12 @@ public class ChatServerHandler extends ChannelInboundHandlerAdapter {
     public void handlerRemoved(ChannelHandlerContext ctx) throws Exception {
         Channel incoming = ctx.channel();
         for (Channel channel : channels) {
-            channel.write("[SERVER] - " + incoming.remoteAddress() + " has joined!\n");
+            // print to server
+            System.out.println("[SERVER] - " + incoming.remoteAddress() + " has left!\n");
+            // print to channel
+            channel.writeAndFlush("[SERVER] - " + incoming.remoteAddress() + " has left!\n");
         }
-        channels.remove(ctx.channel());
+        channels.remove(incoming);
     }
 
     @Override
@@ -38,20 +45,17 @@ public class ChatServerHandler extends ChannelInboundHandlerAdapter {
         Channel incoming = ctx.channel();
         for (Channel channel : channels) {
             if (channel != incoming) {
-                channel.write("[" + incoming.remoteAddress() + "]" + msg + "\n");
+                // print message to server
+                System.out.println("[" + incoming.remoteAddress() + "]" + msg + "\n");
+                // print message to channel
+                channel.writeAndFlush("[" + incoming.remoteAddress() + "]" + msg + "\n");
             }
         }
-        // echo the received data TODO: redundant?
-        /*
-        ctx.write(msg);
-        ctx.flush();
-        */
     }
 
     @Override
     // Close the connection when an exception is raised
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
-        System.out.println("Err: exception caught server-side\n");
         cause.printStackTrace();
         ctx.close();
     }

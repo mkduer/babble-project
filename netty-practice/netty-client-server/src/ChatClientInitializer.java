@@ -1,3 +1,7 @@
+/*
+ * Created by michelle on 4/26/17.
+ */
+
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
 import io.netty.channel.socket.SocketChannel;
@@ -5,10 +9,6 @@ import io.netty.handler.codec.DelimiterBasedFrameDecoder;
 import io.netty.handler.codec.Delimiters;
 import io.netty.handler.codec.string.StringDecoder;
 import io.netty.handler.codec.string.StringEncoder;
-
-/**
- * Created by michelle on 4/26/17.
- */
 
 // initialize socket channels
 public class ChatClientInitializer extends ChannelInitializer<SocketChannel> {
