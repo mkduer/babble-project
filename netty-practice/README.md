@@ -8,11 +8,15 @@
 
 ### netty-echo
 Runs through the netty.io tutorial available at [http://netty.io/wiki/user-guide-for-4.x.html](http://netty.io/wiki/user-guide-for-4.x.html) to set-up a Discard Server. As the Discard Server literally discards any messages that are sent to it, this was edited to become an Echo Server. To get the server running:
+
+
 (1) Run the Discard Server (I ran it on my Intellij IDEA IDE)
+
 (2) Connect to the port in the terminal using the following command:
 ```
 telnet localhost 8080
 ```
+
 (3) If the connection is successful, try typing anything and it should be echoed back -- this means success connecting to the server and that it is echoing back what you typed, yay!
 
 ### netty-secure
