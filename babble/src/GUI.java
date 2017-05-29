@@ -1,19 +1,24 @@
 /**
  * Created by michelle on 5/29/17.
  */
-import javax.swing.JFrame;
+import javax.swing.*;
+import java.awt.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 
 /*
 * The chat interface relies on the javax.swing.JFrame library
 * to build out buttons, textfields, labels and more.
 *
  */
-public class Interface extends javax.swing.JFrame {
+public class GUI extends javax.swing.JFrame {
 
     /**
-     * Creates new form Interface
+     * Creates new form GUI
+     * and begins connection to database bchat
      */
-    public Interface() {
+    public GUI() {
         initComponents();
     }
 
@@ -49,6 +54,7 @@ public class Interface extends javax.swing.JFrame {
         userLabel.setText("Username");
         userLabel.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
 
+        userField.setFont(new java.awt.Font("Ubuntu", 3, 36)); // NOI18N
         userField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 userFieldActionPerformed(evt);
@@ -75,6 +81,7 @@ public class Interface extends javax.swing.JFrame {
             }
         });
 
+        passField.setFont(new java.awt.Font("Ubuntu", 3, 36)); // NOI18N
         passField.setText("jPasswordField1");
 
         /* This is image is used under a CreativeCommons license: https://creativecommons.org/licenses/by/2.0/
@@ -83,13 +90,13 @@ public class Interface extends javax.swing.JFrame {
         *  "You sneaky rabbit!" by Sarah Buckley on Flickr
          */
         rabbitImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("you_sneaky_rabbit.jpg")));
-        rabbitImage.setText("jLabel3");
+        rabbitImage.setText("rabbit");
 
         registerBlurb.setBackground(new java.awt.Color(235, 150, 55));
         registerBlurb.setColumns(20);
         registerBlurb.setFont(new java.awt.Font("Ubuntu", 2, 24)); // NOI18N
         registerBlurb.setRows(5);
-        registerBlurb.setText("        Not a part of Babble Chat? \n        Think the rabbits are cute?\n\n              If you answered yes, \n                Jooooooooin us! ");
+        registerBlurb.setText("        Not a part of Babble Chat? \n       Think ginger rabbits are cute?\n\n              If you answered yes, \n                Jooooooooin us! ");
         registerBlurb.setBorder(null);
         registerBlurb.setCaretColor(new java.awt.Color(235, 150, 55));
         jScrollPane1.setViewportView(registerBlurb);
@@ -158,8 +165,30 @@ public class Interface extends javax.swing.JFrame {
         pack();
     }// </editor-fold>
 
+    public Connection getConnected() {
+        Connection connect = null;
+
+        String url = "jdbc:mysql://localhost:3306/";
+        String user = "babble";
+        String pass = "babble";
+
+        try {
+            connect = DriverManager.getConnection(url, user, pass);
+            JLabel label = new JLabel("    DB Connected!    "); // TODO: Turn into a unit test
+            label.setFont(new java.awt.Font("Ubuntu", Font.PLAIN, 25));
+            JOptionPane.showMessageDialog(null,label,"ERROR",JOptionPane.WARNING_MESSAGE);
+            return connect;
+        } catch (SQLException ex) {
+            java.util.logging.Logger.getLogger(GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            JLabel label = new JLabel("    Failed to Connect to DB!    "); // TODO: Turn into a unit test
+            label.setFont(new java.awt.Font("Ubuntu", Font.PLAIN, 25));
+            JOptionPane.showMessageDialog(null,label,"ERROR",JOptionPane.WARNING_MESSAGE);
+            return null;
+        }
+    }
+
     private void userFieldActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
+        // TODO
     }
 
     private void registerButtonActionPerformed(java.awt.event.ActionEvent evt) {
@@ -167,7 +196,7 @@ public class Interface extends javax.swing.JFrame {
     }
 
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
+        getConnected();
     }
 
     /**
@@ -187,20 +216,20 @@ public class Interface extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Interface.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Interface.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Interface.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Interface.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Interface().setVisible(true);
+                new GUI().setVisible(true);
             }
         });
     }
