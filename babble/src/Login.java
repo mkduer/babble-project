@@ -27,12 +27,10 @@ public class Login extends Window {
         userField = new javax.swing.JTextField();
         registerButton = new javax.swing.JButton();
         loginButton = new javax.swing.JButton();
-        passField = new javax.swing.JTextField();
+        passField = new javax.swing.JPasswordField();
         rabbitImage = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        registerBlurb = new javax.swing.JTextArea();
-
-        // setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        blurb = new javax.swing.JTextArea();
 
         backgroundOrange.setBackground(new java.awt.Color(235, 150, 55));
 
@@ -86,14 +84,14 @@ public class Login extends Window {
         rabbitImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("you_sneaky_rabbit.jpg")));
         rabbitImage.setText("rabbit");
 
-        registerBlurb.setBackground(new java.awt.Color(235, 150, 55));
-        registerBlurb.setColumns(20);
-        registerBlurb.setFont(new java.awt.Font("Ubuntu", 2, 24)); // NOI18N
-        registerBlurb.setRows(5);
-        registerBlurb.setText("        Not a part of Babble Chat? \n       Think ginger rabbits are cute?\n\n              If you answered yes, \n                Jooooooooin us! ");
-        registerBlurb.setBorder(null);
-        registerBlurb.setCaretColor(new java.awt.Color(235, 150, 55));
-        jScrollPane1.setViewportView(registerBlurb);
+        blurb.setBackground(new java.awt.Color(235, 150, 55));
+        blurb.setColumns(20);
+        blurb.setFont(new java.awt.Font("Ubuntu", 2, 24)); // NOI18N
+        blurb.setRows(5);
+        blurb.setText("        Not a part of Babble Chat? \n       Think ginger rabbits are cute?\n\n              If you answered yes, \n                Jooooooooin us! ");
+        blurb.setBorder(null);
+        blurb.setCaretColor(new java.awt.Color(235, 150, 55));
+        jScrollPane1.setViewportView(blurb);
 
         javax.swing.GroupLayout backgroundOrangeLayout = new javax.swing.GroupLayout(backgroundOrange);
         backgroundOrange.setLayout(backgroundOrangeLayout);
@@ -162,7 +160,6 @@ public class Login extends Window {
 
     public void registerButtonActionPerformed(java.awt.event.ActionEvent evt) {
         try {
-            // setVisible(false);
             this.dispose();
             Register client = new Register();
             client.createRegistration();
@@ -174,10 +171,7 @@ public class Login extends Window {
     public void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {
         String user = null;
 
-        // verify login details
-        user = userFieldActionPerformed(evt);
-
-        if (userAccess(user,passFieldActionPerformed(evt)) > 0) {
+        if (userAccess(userFieldActionPerformed(evt),passFieldActionPerformed(evt)) > 0) {
             System.out.println("ACCESS GRANTED!\n"); // TODO: delete
             // TODO: open chat window here
         } else {
@@ -198,6 +192,7 @@ public class Login extends Window {
             while (res.next()) {
                 valid = res.getInt("id");
             }
+            connect.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
