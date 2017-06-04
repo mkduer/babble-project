@@ -10,9 +10,9 @@ import io.netty.channel.group.DefaultChannelGroup;
 import io.netty.util.concurrent.GlobalEventExecutor;
 
 /* Handles the messages that are sent from client to server
-*  Depending on how print message is formatted:
-*  System.out.print.ln will print to the server window
-*  channel.writeAndFlush will write to the client
+Depending on how print message is formatted:
+System.out.print.ln will print to the server window
+channel.writeAndFlush will write to the client
 */
 public class ServerHandler extends ChannelInboundHandlerAdapter {
 

@@ -19,9 +19,10 @@ public class UserInit extends ChannelInitializer<SocketChannel> {
         // organize communication with netty pipelines
         ChannelPipeline pipeline = arg0.pipeline();
 
-        // specify the type expected (frames of 8192 size),
-        // then decode bytes into strings that are readable
-        // and encode strings into bytes for sending to the server
+        /* specify the type expected (frames of 8192 size),
+        then decode bytes into strings that are readable
+        and encode strings into bytes for sending to the server
+        */
         pipeline.addLast("framer", new DelimiterBasedFrameDecoder(8192, Delimiters.lineDelimiter()));
         pipeline.addLast("decoder", new StringDecoder());
         pipeline.addLast("encoder", new StringEncoder());

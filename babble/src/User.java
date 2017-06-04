@@ -1,11 +1,11 @@
 /*
- * Created by michelle on 5/6/17.
- *
- * note: no package since this is a small application
- * refer to bottom of official documentation on why it is not
- * necessary for this application:
- * http://docs.oracle.com/javase/tutorial/java/package/createpkgs.html
- */
+Created by michelle on 5/6/17.
+
+note: no package since this is a small application
+refer to bottom of official documentation on why it is not
+necessary for this application:
+http://docs.oracle.com/javase/tutorial/java/package/createpkgs.html
+*/
 
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.Channel;
@@ -51,10 +51,11 @@ public class User {
             BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 
             while(true) {
-                // types message to channels
-                // IMPORTANT: This will only work with flush
-                // whether it is write and flush or writeandflush methods
-                // may not be the most effective approach, but works for now!
+                /* types message to channels
+                IMPORTANT: This will only work with flush
+                whether it is write and flush or writeandflush methods
+                may not be the most effective approach, but works for now!
+                */
                 channel.writeAndFlush("  " + in.readLine() + "\r\n");
             }
 
