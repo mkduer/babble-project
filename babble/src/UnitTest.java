@@ -1,9 +1,8 @@
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+
+import java.sql.*;
 
 
 /**
@@ -40,7 +39,6 @@ public class UnitTest {
         assertNotNull(session);
     }
 
-
     @Test // various valid/invalid parameters for validation
     public void validateLogin() throws Exception {
         Login test = new Login();
@@ -67,4 +65,40 @@ public class UnitTest {
         assertEquals(-1,id);
     }
 
+    @Test // registration test
+    public void validateRegistration() throws Exception {
+        Register test = new Register();
+        int id = -1;
+        Statement st = connect.createStatement();
+        String name = "h";
+
+        // double-check that the following name does not already exist
+        String sql = "SELECT id FROM users WHERE username='" + name + "';";
+        ResultSet res = st.executeQuery(sql);
+        while (res.next()) {
+            id = res.getInt("id");
+        }
+        assertEquals(-1,id);
+
+        // test that registering is successful
+        id = test.userAccess(name,"b");
+        assertNotEquals(-1,id);
+
+        // remove register test name // TODO:
+        sql = "DELETE FROM users WHERE id='" + id + "';";
+        st.executeUpdate(sql);
+
+        // double-check that the name was removed
+        id = -1;
+        sql = "SELECT id FROM users WHERE username='"+ name + "';";
+        res = st.executeQuery(sql);
+        while (res.next()) {
+            id = res.getInt("id");
+        }
+        assertEquals(-1,id);
+    }
+
+    public void closeConnection() throws Exception {
+        connect.close();
+    }
 }
