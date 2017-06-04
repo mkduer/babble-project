@@ -38,7 +38,7 @@ public class Register extends Window {
         }
 
         // Set Login's value so that it is visible rather than hidden
-        setVisible(true);
+        this.setVisible(true);
     }
 
     public void initComponents() {
@@ -48,8 +48,7 @@ public class Register extends Window {
         userField = new javax.swing.JTextField();
         registerButton = new javax.swing.JButton();
         passField = new javax.swing.JPasswordField();
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        // blurb = new javax.swing.JTextArea(); // TODO: if time permits, fix this
 
         backgroundOrange.setBackground(new java.awt.Color(235, 150, 55));
 
@@ -74,7 +73,11 @@ public class Register extends Window {
         registerButton.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, null, new java.awt.Color(214, 99, 25), null, null));
         registerButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                registerButtonActionPerformed(evt);
+                try {
+                    registerButtonActionPerformed(evt);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         });
 
@@ -84,6 +87,15 @@ public class Register extends Window {
                 passFieldActionPerformed(evt);
             }
         });
+
+        /* TODO: take out if needed ,why is this breaking?
+        blurb.setBackground(new java.awt.Color(235, 150, 55));
+        blurb.setColumns(20);
+        blurb.setFont(new java.awt.Font("Ubuntu", 0, 24)); // NOI18N
+        blurb.setRows(5);
+        blurb.setText("Please choose a username and password.\n\nWhen creating a password, we recommend:\n* 8 or more characters\n* A mixture of symbols and alphanumericals\n* Something you don't use elsewhere\n\nIf your username is already taken or your\npassword is not secure, you will be promped\nto try again.");
+        jScrollPane1.setViewportView(blurb);
+        */
 
         javax.swing.GroupLayout backgroundOrangeLayout = new javax.swing.GroupLayout(backgroundOrange);
         backgroundOrange.setLayout(backgroundOrangeLayout);
@@ -134,27 +146,53 @@ public class Register extends Window {
         setLocationRelativeTo(null); // center
     }
 
-    public void registerButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        String user = null;
-
-        if (userAccess(userFieldActionPerformed(evt),passFieldActionPerformed(evt)) > 0) {
-            System.out.println("Inserting User!\n"); // TODO: delete
-            // TODO: allow user to enter chat room
-        } else {
-            JLabel label = new JLabel("    Invalid username or password. Please try again.    ");
-            label.setFont(new java.awt.Font("Arial", Font.PLAIN,23));
+    public void registerButtonActionPerformed(java.awt.event.ActionEvent evt) throws Exception {
+        try {
+            if (userAccess(userFieldActionPerformed(evt), passFieldActionPerformed(evt)) > 0) {
+                System.out.println("Inserting User!\n"); // TODO: delete
+                // TODO: allow user to enter chat room
+            }
+        } catch (Exception ex) {
+            JLabel label = new JLabel("    Sorry, we're running into registration issues, please contact us!    ");
+            label.setFont(new java.awt.Font("Arial", Font.PLAIN, 23));
             JOptionPane.showMessageDialog(null, label, "ERROR", JOptionPane.ERROR_MESSAGE);
         }
     }
 
     public int userAccess(String name, String key) {
         int valid = -1;
+        int id = -1;
         Connection connect = getConnected();
 
-        // TODO: Test to see if values are being added correctly
         try {
             Statement st = connect.createStatement();
-            String sql = "INSERT INTO users (username,pass) VALUES ('" + name + "','" + key + "');";
+
+            // check that username hasn't already been taken
+            String sql = "SELECT id FROM users WHERE username='"+ name + "';";
+            ResultSet res = st.executeQuery(sql);
+            while (res.next()) {
+                id = res.getInt("id");
+            }
+
+            if (id < 0) {
+                // register user
+                sql = "INSERT INTO users (username,pass) VALUES ('" + name + "','" + key + "')";
+                st.executeUpdate(sql);
+
+                // confirm that account was created
+                sql = "SELECT id FROM users WHERE username='" + name + "' AND pass='" + key + "';";
+                res = st.executeQuery(sql);
+                while (res.next()) {
+                    valid = res.getInt("id");
+                }
+            } else {
+                userField.setText("");
+                passField.setText("");
+                JLabel label = new JLabel("    That username is already taken. Please choose another.    ");
+                label.setFont(new java.awt.Font("Arial", Font.PLAIN,23));
+                JOptionPane.showMessageDialog(null, label, "ERROR", JOptionPane.ERROR_MESSAGE);
+            }
+            connect.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }

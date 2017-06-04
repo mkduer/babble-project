@@ -16,7 +16,7 @@ public abstract class Window extends javax.swing.JFrame  {
     protected javax.swing.JButton loginButton;
     protected javax.swing.JLabel passLabel;
     protected javax.swing.JLabel rabbitImage;
-    protected javax.swing.JTextArea registerBlurb;
+    protected javax.swing.JTextArea blurb;
     protected javax.swing.JButton registerButton;
     protected javax.swing.JTextField userField;
     protected javax.swing.JTextField passField;
