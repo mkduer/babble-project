@@ -7,11 +7,10 @@ import java.awt.event.ActionEvent;
 import java.sql.*;
 
 /*
-* The chat interface relies on the javax.swing.JFrame library
-* to build out buttons, textfields, labels and more.
-*
- */
-public class GUI extends javax.swing.JFrame {
+The chat interface relies on the javax.swing.JFrame library
+to build out buttons, textfields, labels and more.
+*/
+public class Login extends javax.swing.JFrame {
 
     private javax.swing.JPanel backgroundOrange;
     private javax.swing.JScrollPane jScrollPane1;
@@ -25,8 +24,8 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JTextField passField;
     private javax.swing.JLabel userLabel;
 
-    // Constructor for GUI initializes all of the components
-    public GUI() {
+    // Constructor for Login initializes all of the components
+    public Login() {
         initComponents(); // initialize gui components
         getConnected(); // establish connection to database
     }
@@ -44,19 +43,19 @@ public class GUI extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
 
-        // Set GUI's value so that it is visible rather than hidden
+        // Set Login's value so that it is visible rather than hidden
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new GUI().setVisible(true);
+                new Login().setVisible(true);
             }
         });
 
@@ -131,10 +130,10 @@ public class GUI extends javax.swing.JFrame {
         */
 
         /* This is image is used under a CreativeCommons license: https://creativecommons.org/licenses/by/2.0/
-        *  under which it can be shared and adapted with attribution and no further restrictions allowed.
-        *  The source of this image is found here: https://www.flickr.com/photos/17207222@N02/6644178563/
-        *  "You sneaky rabbit!" by Sarah Buckley on Flickr
-         */
+        under which it can be shared and adapted with attribution and no further restrictions allowed.
+        The source of this image is found here: https://www.flickr.com/photos/17207222@N02/6644178563/
+        "You sneaky rabbit!" by Sarah Buckley on Flickr
+        */
         rabbitImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("you_sneaky_rabbit.jpg")));
         rabbitImage.setText("rabbit");
 
@@ -230,7 +229,7 @@ public class GUI extends javax.swing.JFrame {
             */
             return connect;
         } catch (SQLException ex) {
-            java.util.logging.Logger.getLogger(GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
             JLabel label = new JLabel("    Failed to Connect to DB!    "); // TODO: Turn into a unit test?
             label.setFont(new java.awt.Font("Arial", Font.PLAIN, 23));
             JOptionPane.showMessageDialog(null,label,"ERROR",JOptionPane.ERROR_MESSAGE);

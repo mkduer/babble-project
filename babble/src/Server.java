@@ -7,20 +7,14 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 
 /* This class creates a Server at the specified port
-*  shutting down gracefully at the end
- */
+shutting down gracefully at the end
+*/
 public class Server {
 
     private final int port;
 
-    public Server(int port) {
-        this.port = port;
-    }
-
-    // start a chat server at port (e.g. 8000)
-    // and listen for incoming connections
-    public static void main(String[] args) throws Exception {
-        new Server(8000).run();
+    public Server(int port) throws Exception {
+        this.port = validPort(port);
     }
 
     // Run the Server
@@ -42,5 +36,16 @@ public class Server {
             bossGroup.shutdownGracefully();
             workerGroup.shutdownGracefully();
         }
+    }
+
+    // Make sure that the port is valid
+    public int validPort(int port) throws Exception {
+        int min = 1024;
+        int max = 49151;
+
+        if (port <= min && max <= port) {
+            port = 8080; // ensure valid port is used
+        }
+        return port;
     }
 }
