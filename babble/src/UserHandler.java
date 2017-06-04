@@ -4,8 +4,7 @@
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 
-/* Handles the messages that are sent from client
-*/
+// Handles the messages that are sent from client
 public class UserHandler extends ChannelInboundHandlerAdapter {
 
     @Override
