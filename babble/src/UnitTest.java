@@ -47,23 +47,23 @@ public class UnitTest {
         int id = 0;
 
         // test valid values
-        id = test.validateUser("testuser","testpass");
+        id = test.userAccess("testuser","testpass");
         assertEquals(3,id);
 
         // test invalid user
-        id = test.validateUser("invalid","testpass");
+        id = test.userAccess("invalid","testpass");
         assertEquals(-1,id);
 
         // test invalid pass
-        id = test.validateUser("testuser","invalid");
+        id = test.userAccess("testuser","invalid");
         assertEquals(-1,id);
 
         // test empty name
-        id = test.validateUser("","testpass");
+        id = test.userAccess("","testpass");
         assertEquals(-1,id);
 
         // test empty pass
-        id = test.validateUser("testuser","");
+        id = test.userAccess("testuser","");
         assertEquals(-1,id);
     }
 

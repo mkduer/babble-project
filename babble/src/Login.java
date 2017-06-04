@@ -10,61 +10,16 @@ import java.sql.*;
 The chat interface relies on the javax.swing.JFrame library
 to build out buttons, textfields, labels and more.
 */
-public class Login extends javax.swing.JFrame {
-
-    private javax.swing.JPanel backgroundOrange;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JButton loginButton;
-    // private javax.swing.JPasswordField passField; // TODO: delete if not using
-    private javax.swing.JLabel passLabel;
-    private javax.swing.JLabel rabbitImage;
-    private javax.swing.JTextArea registerBlurb;
-    private javax.swing.JButton registerButton;
-    private javax.swing.JTextField userField;
-    private javax.swing.JTextField passField;
-    private javax.swing.JLabel userLabel;
+public class Login extends Window {
 
     // Constructor for Login initializes all of the components
+    // and connects to database
     public Login() {
+        super();
         initComponents(); // initialize gui components
-        getConnected(); // establish connection to database
     }
 
-    // Main method for getting everything started
-    public static void main(String args[]) throws Exception {
-        int port = 8000;
-
-        try {
-            // Uses Nimbus look and feel: https://docs.oracle.com/javase/tutorial/uiswing/lookandfeel/nimbus.html
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-
-        // Set Login's value so that it is visible rather than hidden
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Login().setVisible(true);
-            }
-        });
-
-        // Start a server session on defined port
-        // and start listening for incoming sessions
-        new Server(port).run();
-    }
-
-    private void initComponents() {
+    public void initComponents() {
 
         backgroundOrange = new javax.swing.JPanel();
         passLabel = new javax.swing.JLabel();
@@ -72,13 +27,12 @@ public class Login extends javax.swing.JFrame {
         userField = new javax.swing.JTextField();
         registerButton = new javax.swing.JButton();
         loginButton = new javax.swing.JButton();
-        // passField = new javax.swing.JPasswordField(); TODO: delete if not using
         passField = new javax.swing.JTextField();
         rabbitImage = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         registerBlurb = new javax.swing.JTextArea();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        // setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         backgroundOrange.setBackground(new java.awt.Color(235, 150, 55));
 
@@ -123,11 +77,6 @@ public class Login extends javax.swing.JFrame {
                 loginButtonActionPerformed(evt);
             }
         });
-
-        /* TODO delete if not using
-        passField.setFont(new java.awt.Font("Ubuntu", 3, 36)); // NOI18N
-        passField.setText("awesomepass");
-        */
 
         /* This is image is used under a CreativeCommons license: https://creativecommons.org/licenses/by/2.0/
         under which it can be shared and adapted with attribution and no further restrictions allowed.
@@ -211,63 +160,34 @@ public class Login extends javax.swing.JFrame {
         setLocationRelativeTo(null); // center
     }
 
-
-    // Generates connection to database or outputs an error message
-    public Connection getConnected() {
-        Connection connect = null;
-
-        String url = "jdbc:mysql://localhost:3306/bchat";
-        String user = "babble";
-        String pass = "babble";
-
+    public void registerButtonActionPerformed(java.awt.event.ActionEvent evt) {
         try {
-            connect = DriverManager.getConnection(url, user, pass);
-            /* TODO: Turn into a unit test?
-            JLabel label = new JLabel("    DB Connected!    ");
-            label.setFont(new java.awt.Font("Arial", Font.PLAIN, 23));
-            JOptionPane.showMessageDialog(null,label,"SUCCESS",JOptionPane.PLAIN_MESSAGE);
-            */
-            return connect;
-        } catch (SQLException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-            JLabel label = new JLabel("    Failed to Connect to DB!    "); // TODO: Turn into a unit test?
-            label.setFont(new java.awt.Font("Arial", Font.PLAIN, 23));
-            JOptionPane.showMessageDialog(null,label,"ERROR",JOptionPane.ERROR_MESSAGE);
-            return null;
+            // setVisible(false);
+            this.dispose();
+            Register client = new Register();
+            client.createRegistration();
+        } catch (Exception ex) {
+            System.out.println("Failed to open registration window");
         }
     }
 
-    private String userFieldActionPerformed(java.awt.event.ActionEvent evt) {
-        return userField.getText();
-    }
-
-    private String passFieldActionPerformed(ActionEvent evt) {
-        return passField.getText();
-    }
-
-    private void registerButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
-        System.out.println("reaching register button action");
-    }
-
-    private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {
+    public void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {
         String user = null;
 
         // verify login details
         user = userFieldActionPerformed(evt);
 
-        // TODO: create a function to validate user/pass with the database
-        if (validateUser(user,passFieldActionPerformed(evt)) > 0) {
+        if (userAccess(user,passFieldActionPerformed(evt)) > 0) {
             System.out.println("ACCESS GRANTED!\n"); // TODO: delete
             // TODO: open chat window here
         } else {
-            JLabel label = new JLabel("    Invalid username or password. Please try again.    "); // TODO: Turn into a unit test
+            JLabel label = new JLabel("    Invalid username or password. Please try again.    ");
             label.setFont(new java.awt.Font("Arial", Font.PLAIN,23));
             JOptionPane.showMessageDialog(null, label, "ERROR", JOptionPane.ERROR_MESSAGE);
         }
     }
 
-    public int validateUser(String name, String key) {
+    public int userAccess(String name, String key) {
         int valid = -1;
         Connection connect = getConnected();
 
