@@ -29,7 +29,7 @@ public class User {
 
     // start a chat client on specified host and port
     public static void main(String[] args) throws Exception {
-        new User("localhost", 8000).run();
+        new User("localhost", 8080).run();
     }
 
     // client running behavior

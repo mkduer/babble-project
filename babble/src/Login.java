@@ -13,7 +13,6 @@ to build out buttons, textfields, labels and more.
 public class Login extends Window {
 
     // Constructor for Login initializes all of the components
-    // and connects to database
     public Login() {
         super();
         initComponents(); // initialize gui components
@@ -172,8 +171,15 @@ public class Login extends Window {
         String user = null;
 
         if (userAccess(userFieldActionPerformed(evt),passFieldActionPerformed(evt)) > 0) {
-            System.out.println("ACCESS GRANTED!\n"); // TODO: delete
-            // TODO: open chat window here
+            try {
+                userField.setText("");
+                passField.setText("");
+                this.dispose();
+                Chat room = new Chat();
+                room.createRoom();
+            } catch (Exception ex) {
+                System.out.println("Chatroom error. Let's see what's going on in this flat dimension\n");
+            }
         } else {
             JLabel label = new JLabel("    Invalid username or password. Please try again.    ");
             label.setFont(new java.awt.Font("Arial", Font.PLAIN,23));

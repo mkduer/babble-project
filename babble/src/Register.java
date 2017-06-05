@@ -37,7 +37,6 @@ public class Register extends Window {
             java.util.logging.Logger.getLogger(Register.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
 
-        // Set Login's value so that it is visible rather than hidden
         this.setVisible(true);
     }
 
@@ -48,7 +47,6 @@ public class Register extends Window {
         userField = new javax.swing.JTextField();
         registerButton = new javax.swing.JButton();
         passField = new javax.swing.JPasswordField();
-        // blurb = new javax.swing.JTextArea(); // TODO: if time permits, fix this
 
         backgroundOrange.setBackground(new java.awt.Color(235, 150, 55));
 
@@ -87,15 +85,6 @@ public class Register extends Window {
                 passFieldActionPerformed(evt);
             }
         });
-
-        /* TODO: take out if needed ,why is this breaking?
-        blurb.setBackground(new java.awt.Color(235, 150, 55));
-        blurb.setColumns(20);
-        blurb.setFont(new java.awt.Font("Ubuntu", 0, 24)); // NOI18N
-        blurb.setRows(5);
-        blurb.setText("Please choose a username and password.\n\nWhen creating a password, we recommend:\n* 8 or more characters\n* A mixture of symbols and alphanumericals\n* Something you don't use elsewhere\n\nIf your username is already taken or your\npassword is not secure, you will be promped\nto try again.");
-        jScrollPane1.setViewportView(blurb);
-        */
 
         javax.swing.GroupLayout backgroundOrangeLayout = new javax.swing.GroupLayout(backgroundOrange);
         backgroundOrange.setLayout(backgroundOrangeLayout);
@@ -149,8 +138,13 @@ public class Register extends Window {
     public void registerButtonActionPerformed(java.awt.event.ActionEvent evt) throws Exception {
         try {
             if (userAccess(userFieldActionPerformed(evt), passFieldActionPerformed(evt)) > 0) {
-                System.out.println("Inserting User!\n"); // TODO: delete
-                // TODO: allow user to enter chat room
+                try {
+                    this.dispose();
+                    Chat room = new Chat();
+                    room.createRoom();
+                } catch (Exception ex) {
+                    System.out.println("Chatroom failed to materialize. Contact us so we can find what dimension it vanished to!\n");
+                }
             }
         } catch (Exception ex) {
             JLabel label = new JLabel("    Sorry, we're running into registration issues, please contact us!    ");
@@ -198,6 +192,4 @@ public class Register extends Window {
         }
         return valid;
     }
-
-
 }

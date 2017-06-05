@@ -5,12 +5,12 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+
 /**
  * Created by michelle on 6/4/17.
  */
 public abstract class Window extends javax.swing.JFrame  {
 
-    Window type = null;
     protected javax.swing.JPanel backgroundOrange;
     protected javax.swing.JScrollPane jScrollPane1;
     protected javax.swing.JButton loginButton;
@@ -21,6 +21,14 @@ public abstract class Window extends javax.swing.JFrame  {
     protected javax.swing.JTextField userField;
     protected javax.swing.JTextField passField;
     protected javax.swing.JLabel userLabel;
+    protected javax.swing.JTextArea chat;
+    protected javax.swing.JTextArea friends;
+    protected javax.swing.JScrollPane jScrollPane2;
+    protected javax.swing.JScrollPane jScrollPane3;
+    protected javax.swing.JTextArea pendingMessage;
+    protected javax.swing.JButton sendButton;
+    protected javax.swing.JButton logoutButton;
+
 
     Window() {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -30,7 +38,6 @@ public abstract class Window extends javax.swing.JFrame  {
 
     // Main method for getting everything started
     public static void main(String args[]) throws Exception {
-        int port = 8000;
         Window type = new Login();
 
         try {
@@ -53,17 +60,13 @@ public abstract class Window extends javax.swing.JFrame  {
 
         // Set Login's value so that it is visible rather than hidden
         type.setVisible(true);
-
-        // Start a server session on defined port
-        // and start listening for incoming sessions
-        new Server(port).run();
     }
 
     // Generates connection to database or outputs an error message
     Connection getConnected() {
         Connection connect = null;
 
-        String url = "jdbc:mysql://localhost:3306/bchat";
+        String url = "jdbc:mysql://localhost:3306/bchat?useSSL=false";
         String user = "babble";
         String pass = "babble";
 
