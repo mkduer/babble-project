@@ -17,6 +17,14 @@ public class Server {
         this.port = validPort(port);
     }
 
+    public static void main(String[] args) throws Exception {
+        try {
+            new Server(8080).run();
+        } catch (Exception ex) {
+            System.out.println("Server error\n");
+        }
+    }
+
     // Run the Server
     public void run() throws Exception {
         EventLoopGroup bossGroup = new NioEventLoopGroup();
@@ -29,6 +37,7 @@ public class Server {
                     .channel(NioServerSocketChannel.class)
                     .childHandler(new ServerInit());
 
+            System.out.println("server running...\n");
             b.bind(port).sync().channel().closeFuture().sync();
 
             // clean-up before closing server
