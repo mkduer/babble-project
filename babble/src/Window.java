@@ -28,18 +28,24 @@ public abstract class Window extends javax.swing.JFrame  {
     protected javax.swing.JTextArea pendingMessage;
     protected javax.swing.JButton sendButton;
     protected javax.swing.JButton logoutButton;
+    static volatile boolean verified;
+    static volatile boolean run_server;
+    static Window babble;
 
 
     Window() {
+        verified = false;
+        run_server = false;
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
     }
 
-    public abstract void initComponents();
-
     // Main method for getting everything started
     public static void main(String args[]) throws Exception {
-        Window type = new Login();
+        Login type = new Login();
+        type.create();
+    }
 
+    public void create() throws Exception {
         try {
             // Uses Nimbus look and feel: https://docs.oracle.com/javase/tutorial/uiswing/lookandfeel/nimbus.html
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -49,17 +55,15 @@ public abstract class Window extends javax.swing.JFrame  {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Window.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Register.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Window.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Register.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Window.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Register.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Window.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Register.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-
-        // Set Login's value so that it is visible rather than hidden
-        type.setVisible(true);
+        this.setVisible(true);
     }
 
     // Generates connection to database or outputs an error message
@@ -81,6 +85,8 @@ public abstract class Window extends javax.swing.JFrame  {
             return null;
         }
     }
+
+    public abstract void initComponents();
 
     String userFieldActionPerformed(java.awt.event.ActionEvent evt) {
         return userField.getText();
