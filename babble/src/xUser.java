@@ -6,38 +6,28 @@ refer to bottom of official documentation on why it is not
 necessary for this application:
 http://docs.oracle.com/javase/tutorial/java/package/createpkgs.html
 */
-
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.Channel;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioSocketChannel;
-
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
-public class User extends Window {
+public class xUser {
 
     private final String host;
     private final int port;
 
     // paramterized constructor with host and port to connect to
-    public User(String host, int port) {
+    public xUser(String host, int port) {
         this.host = host;
         this.port = port;
-        babble = null;
     }
 
     // start a chat client on specified host and port
     public static void main(String[] args) throws Exception {
-        Login window = new Login();
-        window.create();
-        while (verified == false || run_server == false) {
-            Thread.sleep(3000);
-        }
-        babble = new Chat();
-        babble.create();
-        new User("localhost", 8080).run();
+        new xUser("localhost", 8080).run();
     }
 
     // client running behavior
@@ -51,7 +41,7 @@ public class User extends Window {
             Bootstrap b = new Bootstrap()
                     .group(group)
                     .channel(NioSocketChannel.class)
-                    .handler(new UserInit());
+                    .handler(new xUserInit());
 
             // connect to server using specified host and port
             Channel channel = b.connect(host, port).sync().channel();
@@ -73,9 +63,4 @@ public class User extends Window {
             group.shutdownGracefully();
         }
     }
-
-    public void initComponents() {
-        return;
-    }
 }
-

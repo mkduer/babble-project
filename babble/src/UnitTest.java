@@ -11,12 +11,13 @@ import java.sql.*;
 public class UnitTest {
     Connection connect;
     Server session;
+    User usession;
 
     @Before
     public void setUpConnect() throws SQLException {
         connect = null;
 
-        String url = "jdbc:mysql://localhost:3306/bchat";
+        String url = "jdbc:mysql://localhost:3306/bchat?useSSL=false";
         String user = "babble";
         String pass = "babble";
 
@@ -26,17 +27,6 @@ public class UnitTest {
     @Test // database connection
     public void checkConnection() throws Exception {
         assertNotNull(connect);
-    }
-
-    @Before // port in valid TCP/UDP range
-    public void setUpSession() throws Exception {
-        int port = 0;
-        session = new Server(port);
-    }
-
-    @Test // server session
-    public void serverSession() throws Exception {
-        assertNotNull(session);
     }
 
     @Test // various valid/invalid parameters for validation
@@ -96,6 +86,30 @@ public class UnitTest {
             id = res.getInt("id");
         }
         assertEquals(-1,id);
+    }
+
+    @Before // port in valid TCP/UDP range
+    public void setUpSession() throws Exception {
+        int port = 0;
+        session = null;
+        session = new Server(port);
+    }
+
+    @Test // server session
+    public void serverSession() throws Exception {
+        assertNotNull(session);
+    }
+
+    @Before // port in valid TCP/UDP range
+    public void setUpUSession() throws Exception {
+        int port = 8080;
+        usession = null;
+        usession = new User("localhost",port);
+    }
+
+    @Test // user session
+    public void userSession() throws Exception {
+        assertNotNull(usession);
     }
 
     public void closeConnection() throws Exception {

@@ -14,7 +14,7 @@ Depending on how print message is formatted:
 System.out.print.ln will print to the server window
 channel.writeAndFlush will write to the client
 */
-public class ServerHandler extends ChannelInboundHandlerAdapter {
+public class xServerHandler extends ChannelInboundHandlerAdapter {
 
     private static final ChannelGroup channels = new DefaultChannelGroup(GlobalEventExecutor.INSTANCE);
 
