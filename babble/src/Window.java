@@ -12,27 +12,19 @@ import java.util.logging.*;
  */
 public abstract class Window extends JFrame {
 
-    static volatile boolean verified;
-    static volatile boolean run_server;
-    static Chat room;
+    protected boolean verified;
+    static public volatile boolean run_server;
+    static public volatile String username;
     protected JPanel backgroundOrange;
-    protected JScrollPane jScrollPane1;
     protected JButton loginButton;
-    protected JLabel passLabel;
-    protected JLabel rabbitImage;
-    protected JTextArea blurb;
     protected JButton registerButton;
-    protected JTextField userField;
+    protected JLabel passLabel;
     protected JTextField passField;
     protected JLabel userLabel;
-    protected JTextArea chat;
-    protected JTextArea friends;
+    protected JTextField userField;
+    protected JScrollPane jScrollPane1;
     protected JScrollPane jScrollPane2;
     protected JScrollPane jScrollPane3;
-    protected JTextArea pendingMsg;
-    protected JButton sendButton;
-    protected JButton logoutButton;
-
 
     Window() {
         verified = false;
@@ -42,8 +34,7 @@ public abstract class Window extends JFrame {
 
     // Main method for getting everything started
     public static void main(String args[]) throws Exception {
-        Login login = new Login();
-        login.create();
+        System.out.println("This object shouldn't run on its own\n");
     }
 
     public void create() throws Exception {

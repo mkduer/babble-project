@@ -7,15 +7,10 @@ import io.netty.channel.ChannelInboundHandlerAdapter;
 // Handles the messages that are sent from client
 public class UserHandler extends ChannelInboundHandlerAdapter {
 
-    Chat room; // TODO remove
+    public Chat room;
 
     UserHandler() {
-        room = new Chat();
-        try {
-            room.create();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        channelRoom();
     }
 
     @Override
@@ -36,5 +31,16 @@ public class UserHandler extends ChannelInboundHandlerAdapter {
     // login/logout alerts
     private void sendAlert(Object msg) {
         room.chat.append((String) msg + "\n");
+    }
+
+    // Overrides method in ChannelInboundHandler (netty class)
+    // print any received messages to the console
+    private void channelRoom() {
+        room = new Chat(Window.username); // TODO: name necessary?
+        try {
+            room.create();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

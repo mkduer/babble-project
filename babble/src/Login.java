@@ -14,9 +14,13 @@ to build out buttons, textfields, labels and more.
 */
 public class Login extends Window {
 
+    protected JLabel rabbitImage;
+    protected JTextArea blurb;
+
     // Constructor for Login initializes all of the components
     public Login() {
         super();
+        verified = false;
         initComponents(); // initialize gui components
     }
 
@@ -31,33 +35,33 @@ public class Login extends Window {
         passField = new JPasswordField();
         rabbitImage = new JLabel();
         jScrollPane1 = new JScrollPane();
-        blurb = new JTextArea();
+        blurb = new JTextArea(5,20);
 
         backgroundOrange.setBackground(new Color(235, 150, 55));
 
-        passLabel.setFont(new Font("Ubuntu", 3, 36)); // NOI18N
+        passLabel.setFont(new Font("Ubuntu", Font.BOLD, 36));
         passLabel.setText("Password");
         passLabel.setHorizontalTextPosition(SwingConstants.LEFT);
 
-        userLabel.setFont(new Font("Ubuntu", 3, 36)); // NOI18N
+        userLabel.setFont(new Font("Ubuntu", Font.BOLD, 36));
         userLabel.setText("Username");
         userLabel.setHorizontalTextPosition(SwingConstants.LEFT);
 
-        userField.setFont(new Font("Ubuntu", 3, 36)); // NOI18N
+        userField.setFont(new Font("Ubuntu", Font.BOLD, 36));
         userField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 userFieldActionPerformed(evt);
             }
         });
 
-        passField.setFont(new Font("Ubuntu", 3, 36)); // NOI18N
+        passField.setFont(new Font("Ubuntu", Font.BOLD, 36));
         passField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 passFieldActionPerformed(evt);
             }
         });
 
-        registerButton.setFont(new Font("Ubuntu", 1, 36)); // NOI18N
+        registerButton.setFont(new Font("Ubuntu", Font.BOLD, 36));
         registerButton.setForeground(new Color(235, 121, 22));
         registerButton.setText("Register");
         registerButton.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED, null, new Color(214, 99, 25), null, null));
@@ -67,7 +71,7 @@ public class Login extends Window {
             }
         });
 
-        loginButton.setFont(new Font("Ubuntu", 1, 36)); // NOI18N
+        loginButton.setFont(new Font("Ubuntu", Font.PLAIN, 36));
         loginButton.setForeground(new Color(235, 121, 22));
         loginButton.setText("Login");
         loginButton.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED, null, new Color(214, 99, 25), null, null));
@@ -86,9 +90,7 @@ public class Login extends Window {
         rabbitImage.setText("rabbit");
 
         blurb.setBackground(new Color(235, 150, 55));
-        blurb.setColumns(20);
-        blurb.setFont(new Font("Ubuntu", 2, 24)); // NOI18N
-        blurb.setRows(5);
+        blurb.setFont(new Font("Ubuntu", 2, 24));
         blurb.setText("        Not a part of Babble Chat? \n       Think ginger rabbits are cute?\n\n              If you answered yes, \n                Jooooooooin us! ");
         blurb.setBorder(null);
         blurb.setCaretColor(new Color(235, 150, 55));
@@ -171,14 +173,17 @@ public class Login extends Window {
     }
 
     public void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        String user = null;
+        int id = 0;
+        String name = userFieldActionPerformed(evt);
 
-        if (userAccess(userFieldActionPerformed(evt),passFieldActionPerformed(evt)) > 0) {
+        id = userAccess(name,passFieldActionPerformed(evt));
+
+        if (id > 0) {
+            username = name;
             try {
                 userField.setText("");
                 passField.setText("");
                 this.dispose();
-                run_server = true;
                 verified = true;
             } catch (Exception ex) {
                 System.out.println("Chatroom error. Let's see what's going on in this flat dimension\n");

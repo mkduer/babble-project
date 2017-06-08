@@ -16,7 +16,7 @@ import io.netty.channel.socket.nio.NioSocketChannel;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
-public class User extends Window {
+public class User {
 
     private final String host;
     private final int port;
@@ -31,7 +31,7 @@ public class User extends Window {
     public static void main(String[] args) throws Exception {
         Login log = new Login();
         log.create();
-        while (verified == false || run_server == false) {
+        while (log.verified == false) {
             Thread.sleep(3000);
         }
         new User("localhost", 8080).run();
@@ -68,6 +68,7 @@ public class User extends Window {
             // clean-up before closing
         } finally {
             group.shutdownGracefully();
+            System.exit(0);
         }
     }
 

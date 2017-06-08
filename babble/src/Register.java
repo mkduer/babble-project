@@ -21,30 +21,28 @@ public class Register extends Window {
 
     public void initComponents() {
         backgroundOrange = new JPanel();
-        passLabel = new JLabel();
-        userLabel = new JLabel();
+        passLabel = new JLabel("Password");
+        userLabel = new JLabel("Username");
         userField = new JTextField();
         registerButton = new JButton();
         passField = new JPasswordField();
 
         backgroundOrange.setBackground(new Color(235, 150, 55));
 
-        passLabel.setFont(new Font("Ubuntu", 3, 36)); // NOI18N
-        passLabel.setText("Password");
+        passLabel.setFont(new Font("Ubuntu", 3, 36));
         passLabel.setHorizontalTextPosition(SwingConstants.LEFT);
 
-        userLabel.setFont(new Font("Ubuntu", 3, 36)); // NOI18N
-        userLabel.setText("Username");
+        userLabel.setFont(new Font("Ubuntu", 3, 36));
         userLabel.setHorizontalTextPosition(SwingConstants.LEFT);
 
-        userField.setFont(new Font("Ubuntu", 3, 36)); // NOI18N
+        userField.setFont(new Font("Ubuntu", 3, 36));
         userField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 userFieldActionPerformed(evt);
             }
         });
 
-        registerButton.setFont(new Font("Ubuntu", 1, 36)); // NOI18N
+        registerButton.setFont(new Font("Ubuntu", Font.BOLD, 36));
         registerButton.setForeground(new Color(235, 121, 22));
         registerButton.setText("Register");
         registerButton.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED, null, new Color(214, 99, 25), null, null));
@@ -58,7 +56,7 @@ public class Register extends Window {
             }
         });
 
-        passField.setFont(new Font("Ubuntu", 3, 36)); // NOI18N
+        passField.setFont(new Font("Ubuntu", 3, 36));
         passField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 passFieldActionPerformed(evt);
@@ -119,7 +117,6 @@ public class Register extends Window {
             if (userAccess(userFieldActionPerformed(evt), passFieldActionPerformed(evt)) > 0) {
                 try {
                     this.dispose();
-                    run_server = true;
                     verified = true;
                 } catch (Exception ex) {
                     System.out.println("Chatroom failed to materialize. Contact us so we can find what dimension it vanished to!\n");
