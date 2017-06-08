@@ -18,14 +18,7 @@ public class Server extends Window {
     }
 
     public static void main(String[] args) throws Exception {
-        try {
-            while (run_server == false) {
-                Thread.sleep(3000);
-            }
-            new Server(8080).run();
-        } catch (Exception ex) {
-            System.out.println("Server error\n");
-        }
+        new Server(8080).run();
     }
 
     // Run the Server

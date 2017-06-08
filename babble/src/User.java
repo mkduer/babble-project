@@ -25,18 +25,18 @@ public class User extends Window {
     public User(String host, int port) {
         this.host = host;
         this.port = port;
-        babble = null;
     }
 
     // start a chat client on specified host and port
     public static void main(String[] args) throws Exception {
-        Login window = new Login();
-        window.create();
+        Login log = new Login();
+        log.create();
         while (verified == false || run_server == false) {
             Thread.sleep(3000);
         }
-        babble = new Chat();
-        babble.create();
+        // TODO: uncomment to display chat window
+        room = new Chat();
+        room.create();
         new User("localhost", 8080).run();
     }
 
@@ -78,4 +78,3 @@ public class User extends Window {
         return;
     }
 }
-

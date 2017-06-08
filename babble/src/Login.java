@@ -5,6 +5,7 @@ import javax.swing.*;
 import javax.swing.border.BevelBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
 import java.sql.*;
 
 /*
@@ -32,44 +33,44 @@ public class Login extends Window {
         jScrollPane1 = new JScrollPane();
         blurb = new JTextArea();
 
-        backgroundOrange.setBackground(new java.awt.Color(235, 150, 55));
+        backgroundOrange.setBackground(new Color(235, 150, 55));
 
-        passLabel.setFont(new java.awt.Font("Ubuntu", 3, 36)); // NOI18N
+        passLabel.setFont(new Font("Ubuntu", 3, 36)); // NOI18N
         passLabel.setText("Password");
         passLabel.setHorizontalTextPosition(SwingConstants.LEFT);
 
-        userLabel.setFont(new java.awt.Font("Ubuntu", 3, 36)); // NOI18N
+        userLabel.setFont(new Font("Ubuntu", 3, 36)); // NOI18N
         userLabel.setText("Username");
         userLabel.setHorizontalTextPosition(SwingConstants.LEFT);
 
-        userField.setFont(new java.awt.Font("Ubuntu", 3, 36)); // NOI18N
+        userField.setFont(new Font("Ubuntu", 3, 36)); // NOI18N
         userField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 userFieldActionPerformed(evt);
             }
         });
 
-        passField.setFont(new java.awt.Font("Ubuntu", 3, 36)); // NOI18N
+        passField.setFont(new Font("Ubuntu", 3, 36)); // NOI18N
         passField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 passFieldActionPerformed(evt);
             }
         });
 
-        registerButton.setFont(new java.awt.Font("Ubuntu", 1, 36)); // NOI18N
-        registerButton.setForeground(new java.awt.Color(235, 121, 22));
+        registerButton.setFont(new Font("Ubuntu", 1, 36)); // NOI18N
+        registerButton.setForeground(new Color(235, 121, 22));
         registerButton.setText("Register");
-        registerButton.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED, null, new java.awt.Color(214, 99, 25), null, null));
+        registerButton.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED, null, new Color(214, 99, 25), null, null));
         registerButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 registerButtonActionPerformed(evt);
             }
         });
 
-        loginButton.setFont(new java.awt.Font("Ubuntu", 1, 36)); // NOI18N
-        loginButton.setForeground(new java.awt.Color(235, 121, 22));
+        loginButton.setFont(new Font("Ubuntu", 1, 36)); // NOI18N
+        loginButton.setForeground(new Color(235, 121, 22));
         loginButton.setText("Login");
-        loginButton.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED, null, new java.awt.Color(214, 99, 25), null, null));
+        loginButton.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED, null, new Color(214, 99, 25), null, null));
         loginButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 loginButtonActionPerformed(evt);
@@ -84,13 +85,13 @@ public class Login extends Window {
         rabbitImage.setIcon(new ImageIcon(getClass().getResource("you_sneaky_rabbit.jpg")));
         rabbitImage.setText("rabbit");
 
-        blurb.setBackground(new java.awt.Color(235, 150, 55));
+        blurb.setBackground(new Color(235, 150, 55));
         blurb.setColumns(20);
-        blurb.setFont(new java.awt.Font("Ubuntu", 2, 24)); // NOI18N
+        blurb.setFont(new Font("Ubuntu", 2, 24)); // NOI18N
         blurb.setRows(5);
         blurb.setText("        Not a part of Babble Chat? \n       Think ginger rabbits are cute?\n\n              If you answered yes, \n                Jooooooooin us! ");
         blurb.setBorder(null);
-        blurb.setCaretColor(new java.awt.Color(235, 150, 55));
+        blurb.setCaretColor(new Color(235, 150, 55));
         jScrollPane1.setViewportView(blurb);
 
         GroupLayout backgroundOrangeLayout = new GroupLayout(backgroundOrange);
@@ -155,6 +156,7 @@ public class Login extends Window {
         );
 
         pack();
+        getRootPane().setDefaultButton(loginButton);
         setLocationRelativeTo(null); // center
     }
 
@@ -183,7 +185,7 @@ public class Login extends Window {
             }
         } else {
             JLabel label = new JLabel("    Invalid username or password. Please try again.    ");
-            label.setFont(new java.awt.Font("Arial", Font.PLAIN,23));
+            label.setFont(new Font("Arial", Font.PLAIN,23));
             JOptionPane.showMessageDialog(null, label, "ERROR", JOptionPane.ERROR_MESSAGE);
         }
     }
@@ -205,4 +207,12 @@ public class Login extends Window {
         }
         return valid;
     }
+
+    /*  // TODO: allow enter key to quickly login (add as for Send in chat as well)
+    public void keyPressed(KeyEvent e) {
+        if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+        }
+    }
+    */
+
 }

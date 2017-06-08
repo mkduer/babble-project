@@ -27,27 +27,27 @@ public class Register extends Window {
         registerButton = new JButton();
         passField = new JPasswordField();
 
-        backgroundOrange.setBackground(new java.awt.Color(235, 150, 55));
+        backgroundOrange.setBackground(new Color(235, 150, 55));
 
-        passLabel.setFont(new java.awt.Font("Ubuntu", 3, 36)); // NOI18N
+        passLabel.setFont(new Font("Ubuntu", 3, 36)); // NOI18N
         passLabel.setText("Password");
         passLabel.setHorizontalTextPosition(SwingConstants.LEFT);
 
-        userLabel.setFont(new java.awt.Font("Ubuntu", 3, 36)); // NOI18N
+        userLabel.setFont(new Font("Ubuntu", 3, 36)); // NOI18N
         userLabel.setText("Username");
         userLabel.setHorizontalTextPosition(SwingConstants.LEFT);
 
-        userField.setFont(new java.awt.Font("Ubuntu", 3, 36)); // NOI18N
+        userField.setFont(new Font("Ubuntu", 3, 36)); // NOI18N
         userField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 userFieldActionPerformed(evt);
             }
         });
 
-        registerButton.setFont(new java.awt.Font("Ubuntu", 1, 36)); // NOI18N
-        registerButton.setForeground(new java.awt.Color(235, 121, 22));
+        registerButton.setFont(new Font("Ubuntu", 1, 36)); // NOI18N
+        registerButton.setForeground(new Color(235, 121, 22));
         registerButton.setText("Register");
-        registerButton.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED, null, new java.awt.Color(214, 99, 25), null, null));
+        registerButton.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED, null, new Color(214, 99, 25), null, null));
         registerButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 try {
@@ -58,7 +58,7 @@ public class Register extends Window {
             }
         });
 
-        passField.setFont(new java.awt.Font("Ubuntu", 3, 36)); // NOI18N
+        passField.setFont(new Font("Ubuntu", 3, 36)); // NOI18N
         passField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 passFieldActionPerformed(evt);
@@ -127,7 +127,7 @@ public class Register extends Window {
             }
         } catch (Exception ex) {
             JLabel label = new JLabel("    Sorry, we're running into registration issues, please contact us!    ");
-            label.setFont(new java.awt.Font("Arial", Font.PLAIN, 23));
+            label.setFont(new Font("Arial", Font.PLAIN, 23));
             JOptionPane.showMessageDialog(null, label, "ERROR", JOptionPane.ERROR_MESSAGE);
         }
     }
@@ -162,7 +162,7 @@ public class Register extends Window {
                 userField.setText("");
                 passField.setText("");
                 JLabel label = new JLabel("    That username is already taken. Please choose another.    ");
-                label.setFont(new java.awt.Font("Arial", Font.PLAIN,23));
+                label.setFont(new Font("Arial", Font.PLAIN,23));
                 JOptionPane.showMessageDialog(null, label, "ERROR", JOptionPane.ERROR_MESSAGE);
             }
             connect.close();

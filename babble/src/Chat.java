@@ -4,6 +4,7 @@ import java.awt.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.logging.*;
 
 /**
  * Created by michelle on 6/4/17.
@@ -21,29 +22,29 @@ public class Chat extends Window {
         backgroundOrange = new JPanel();
         sendButton = new JButton();
         jScrollPane1 = new JScrollPane();
-        pendingMessage = new JTextArea();
+        pendingMsg = new JTextArea();
         jScrollPane2 = new JScrollPane();
         chat = new JTextArea();
         jScrollPane3 = new JScrollPane();
         friends = new JTextArea();
         logoutButton = new JButton();
 
-        backgroundOrange.setBackground(new java.awt.Color(235, 150, 55));
+        backgroundOrange.setBackground(new Color(235, 150, 55));
 
-        sendButton.setFont(new java.awt.Font("Ubuntu", 1, 36)); // NOI18N
-        sendButton.setForeground(new java.awt.Color(47, 167, 137));
+        sendButton.setFont(new Font("Ubuntu", 1, 36)); // NOI18N
+        sendButton.setForeground(new Color(47, 167, 137));
         sendButton.setText("Send");
-        sendButton.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED, null, new java.awt.Color(214, 99, 25), null, null));
+        sendButton.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED, null, new Color(214, 99, 25), null, null));
         sendButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 sendButtonActionPerformed(evt);
             }
         });
 
-        pendingMessage.setColumns(20);
-        pendingMessage.setRows(5);
-        pendingMessage.setText("Enter your message here");
-        jScrollPane1.setViewportView(pendingMessage);
+        pendingMsg.setColumns(20);
+        pendingMsg.setRows(5);
+        pendingMsg.setText("Enter your message here");
+        jScrollPane1.setViewportView(pendingMsg);
 
         chat.setColumns(20);
         chat.setRows(5);
@@ -117,8 +118,8 @@ public class Chat extends Window {
     }
 
     private void sendButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO initiate user sesion
-        System.out.println("Send button pressed");
+        chat.append(pendingMsg.getText() + "\n");
+        pendingMsg.setText("");
     }
     // Generates connection to database or outputs an error message
     Connection getConnected() {
@@ -132,7 +133,7 @@ public class Chat extends Window {
             connect = DriverManager.getConnection(url, user, pass);
             return connect;
         } catch (SQLException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
             JLabel label = new JLabel("    Failed to Connect to DB!    ");
             label.setFont(new java.awt.Font("Arial", Font.PLAIN, 23));
             JOptionPane.showMessageDialog(null,label,"ERROR",JOptionPane.ERROR_MESSAGE);

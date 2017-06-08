@@ -17,6 +17,20 @@ channel.writeAndFlush will write to the client
 public class ServerHandler extends ChannelInboundHandlerAdapter {
 
     private static final ChannelGroup channels = new DefaultChannelGroup(GlobalEventExecutor.INSTANCE);
+    /*
+    Chat room; // TODO remove
+    Message message;
+
+    ServerHandler() {
+        message = new Message();
+        room = new Chat();
+        try {
+            room.create();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    */
 
     @Override
     // Overrides method in ChannelHandler (netty class)
