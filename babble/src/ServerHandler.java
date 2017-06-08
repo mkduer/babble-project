@@ -17,20 +17,6 @@ channel.writeAndFlush will write to the client
 public class ServerHandler extends ChannelInboundHandlerAdapter {
 
     private static final ChannelGroup channels = new DefaultChannelGroup(GlobalEventExecutor.INSTANCE);
-    /*
-    Chat room; // TODO remove
-    Message message;
-
-    ServerHandler() {
-        message = new Message();
-        room = new Chat();
-        try {
-            room.create();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-    */
 
     @Override
     // Overrides method in ChannelHandler (netty class)
@@ -39,9 +25,9 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
         Channel incoming = ctx.channel();
         for (Channel channel : channels) {
             // print to server
-            String message = "[SERVER] - " + incoming.remoteAddress() + " has joined!\n";
+            System.out.println("[SERVER0] - " + incoming.remoteAddress() + " has joined!\n");
             // print to channel
-            channel.writeAndFlush("[SERVER] - " + incoming.remoteAddress() + " has joined!\n");
+            channel.writeAndFlush("HELLO~~~ " + incoming.remoteAddress() + " has joined!\n");
         }
         channels.add(incoming);
     }
@@ -53,9 +39,9 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
         Channel incoming = ctx.channel();
         for (Channel channel : channels) {
             // print to server
-            System.out.println("[SERVER] - " + incoming.remoteAddress() + " has left!\n");
+            String message = "[SERVER3] - " + incoming.remoteAddress() + " has left!\n";
             // print to channel
-            channel.writeAndFlush("[SERVER] - " + incoming.remoteAddress() + " has left!\n");
+            channel.writeAndFlush("BYE BYE~~~ " + incoming.remoteAddress() + " has left!\n");
         }
         channels.remove(incoming);
     }
@@ -68,7 +54,7 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
         for (Channel channel : channels) {
             if (channel != incoming) {
                 // print message to server
-                System.out.println("[" + incoming.remoteAddress() + "]" + msg + "\n");
+                String message = "[" + incoming.remoteAddress() + "]" + msg + "\n";
                 // print message to channel
                 channel.writeAndFlush("[" + incoming.remoteAddress() + "]" + msg + "\n");
             }

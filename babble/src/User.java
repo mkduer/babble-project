@@ -34,9 +34,6 @@ public class User extends Window {
         while (verified == false || run_server == false) {
             Thread.sleep(3000);
         }
-        // TODO: uncomment to display chat window
-        room = new Chat();
-        room.create();
         new User("localhost", 8080).run();
     }
 

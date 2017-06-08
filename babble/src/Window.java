@@ -12,6 +12,9 @@ import java.util.logging.*;
  */
 public abstract class Window extends JFrame {
 
+    static volatile boolean verified;
+    static volatile boolean run_server;
+    static Chat room;
     protected JPanel backgroundOrange;
     protected JScrollPane jScrollPane1;
     protected JButton loginButton;
@@ -29,9 +32,6 @@ public abstract class Window extends JFrame {
     protected JTextArea pendingMsg;
     protected JButton sendButton;
     protected JButton logoutButton;
-    static volatile boolean verified;
-    static volatile boolean run_server;
-    static Chat room;
 
 
     Window() {
