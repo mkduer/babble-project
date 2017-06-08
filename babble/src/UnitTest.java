@@ -74,7 +74,7 @@ public class UnitTest {
         id = test.userAccess(name,"b");
         assertNotEquals(-1,id);
 
-        // remove register test name // TODO:
+        // remove register test name
         sql = "DELETE FROM users WHERE id='" + id + "';";
         st.executeUpdate(sql);
 

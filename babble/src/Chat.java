@@ -117,8 +117,7 @@ public class Chat extends Window {
     }
 
     private void sendButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO initiate user sesion
-        System.out.println("Send button pressed");
+        chat.append(pendingMessage.getText() + "\n");
     }
     // Generates connection to database or outputs an error message
     Connection getConnected() {
