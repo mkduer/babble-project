@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.logging.*;
 
 
 /**
@@ -25,7 +26,7 @@ public abstract class Window extends JFrame {
     protected JTextArea friends;
     protected JScrollPane jScrollPane2;
     protected JScrollPane jScrollPane3;
-    protected JTextArea pendingMessage;
+    protected JTextArea pendingMsg;
     protected JButton sendButton;
     protected JButton logoutButton;
     static volatile boolean verified;
@@ -55,13 +56,13 @@ public abstract class Window extends JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Register.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            Logger.getLogger(Register.class.getName()).log(Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Register.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            Logger.getLogger(Register.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Register.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            Logger.getLogger(Register.class.getName()).log(Level.SEVERE, null, ex);
         } catch (UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Register.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            Logger.getLogger(Register.class.getName()).log(Level.SEVERE, null, ex);
         }
         this.setVisible(true);
     }
@@ -78,9 +79,9 @@ public abstract class Window extends JFrame {
             connect = DriverManager.getConnection(url, user, pass);
             return connect;
         } catch (SQLException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
             JLabel label = new JLabel("    Failed to Connect to DB!    ");
-            label.setFont(new java.awt.Font("Arial", Font.PLAIN, 23));
+            label.setFont(new Font("Arial", Font.PLAIN, 23));
             JOptionPane.showMessageDialog(null,label,"ERROR",JOptionPane.ERROR_MESSAGE);
             return null;
         }
