@@ -114,7 +114,6 @@ public class Chat extends Window {
         );
 
         pack();
-        setLocationRelativeTo(null); // center
     }
 
     private void sendButtonActionPerformed(java.awt.event.ActionEvent evt) {
