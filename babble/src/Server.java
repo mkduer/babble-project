@@ -9,7 +9,7 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
 /* This class creates a Server at the specified port
 shutting down gracefully at the end
 */
-public class Server extends Window {
+public class Server {
 
     private final int port;
 
@@ -19,6 +19,7 @@ public class Server extends Window {
 
     public static void main(String[] args) throws Exception {
         new Server(8080).run();
+        Window.run_server = true;
     }
 
     // Run the Server
@@ -40,6 +41,7 @@ public class Server extends Window {
         } finally {
             bossGroup.shutdownGracefully();
             workerGroup.shutdownGracefully();
+            System.exit(0);
         }
     }
 

@@ -1,9 +1,7 @@
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
 import java.awt.*;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.logging.*;
 
 /**
@@ -11,29 +9,48 @@ import java.util.logging.*;
  */
 public class Chat extends Window {
 
+    String name;
+    protected JTextArea chat;
+    protected JTextArea friends;
+    protected JTextArea pendingMsg;
+    protected JButton sendButton;
+    protected JButton logoutButton;
+
     // Constructor for Chat initializes all of the components
     public Chat() {
         super();
+        if (Window.username == null) {
+            name = null;
+        } else {
+            name = Window.username;
+        }
+        initComponents(); // initialize gui components
+    }
+
+
+    // Constructor for Chat initializes all of the components
+    public Chat(String name) {
+        super();
+        this.name = name;
         initComponents(); // initialize gui components
     }
 
     public void initComponents() {
 
         backgroundOrange = new JPanel();
-        sendButton = new JButton();
+        sendButton = new JButton("Send");
         jScrollPane1 = new JScrollPane();
-        pendingMsg = new JTextArea();
+        pendingMsg = new JTextArea(5,20);
         jScrollPane2 = new JScrollPane();
-        chat = new JTextArea();
+        chat = new JTextArea("Welcome " + this.name + "!\n\n",5,20);
         jScrollPane3 = new JScrollPane();
-        friends = new JTextArea();
-        logoutButton = new JButton();
+        friends = new JTextArea(this.name + "'s friends:\n",5, 20);
+        logoutButton = new JButton("Logout");
 
         backgroundOrange.setBackground(new Color(235, 150, 55));
 
-        sendButton.setFont(new Font("Ubuntu", 1, 36)); // NOI18N
+        sendButton.setFont(new Font("Ubuntu", Font.BOLD, 36));
         sendButton.setForeground(new Color(47, 167, 137));
-        sendButton.setText("Send");
         sendButton.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED, null, new Color(214, 99, 25), null, null));
         sendButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -41,22 +58,20 @@ public class Chat extends Window {
             }
         });
 
-        pendingMsg.setColumns(20);
-        pendingMsg.setRows(5);
-        pendingMsg.setText("Enter your message here");
+        pendingMsg.setFont(new Font("Arial",Font.PLAIN, 17));
         jScrollPane1.setViewportView(pendingMsg);
 
-        chat.setColumns(20);
-        chat.setRows(5);
+        chat.setEditable(false);
+        chat.setFont(new Font("Arial", Font.PLAIN, 19));
         jScrollPane2.setViewportView(chat);
 
-        friends.setColumns(20);
-        friends.setRows(5);
+        friends.setEditable(false);
+        friends.setFont(new Font("Arial", Font.PLAIN, 19));
         jScrollPane3.setViewportView(friends);
+        jScrollPane3.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 
-        logoutButton.setFont(new java.awt.Font("Ubuntu", 1, 36)); // NOI18N
+        logoutButton.setFont(new java.awt.Font("Ubuntu", Font.BOLD, 36));
         logoutButton.setForeground(new java.awt.Color(235, 121, 22));
-        logoutButton.setText("Logout");
         logoutButton.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED, null, new java.awt.Color(214, 99, 25), null, null));
         logoutButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -120,6 +135,7 @@ public class Chat extends Window {
         chat.append(pendingMsg.getText() + "\n");
         pendingMsg.setText("");
     }
+
     // Generates connection to database or outputs an error message
     Connection getConnected() {
         Connection connect = null;

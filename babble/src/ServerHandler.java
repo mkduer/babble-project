@@ -24,10 +24,11 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
     public void handlerAdded(ChannelHandlerContext ctx) throws Exception {
         Channel incoming = ctx.channel();
         for (Channel channel : channels) {
-            // print to server
-            System.out.println("[SERVER0] - " + incoming.remoteAddress() + " has joined!\n");
+            // print to server, useful for testing
+            // System.out.println("[SERVER0] - " + incoming.remoteAddress() + " has joined!\n");
+
             // print to channel
-            channel.writeAndFlush("HELLO~~~ " + incoming.remoteAddress() + " has joined!\n");
+            channel.writeAndFlush("**" + incoming.remoteAddress() + "** has joined!\n");
         }
         channels.add(incoming);
     }
@@ -38,10 +39,11 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
     public void handlerRemoved(ChannelHandlerContext ctx) throws Exception {
         Channel incoming = ctx.channel();
         for (Channel channel : channels) {
-            // print to server
-            String message = "[SERVER3] - " + incoming.remoteAddress() + " has left!\n";
+            // print to server, useful for testing
+            // String message = "[SERVER1] - " + incoming.remoteAddress() + " has left!\n";
+
             // print to channel
-            channel.writeAndFlush("BYE BYE~~~ " + incoming.remoteAddress() + " has left!\n");
+            channel.writeAndFlush("**" + incoming.remoteAddress() + "** has left!\n");
         }
         channels.remove(incoming);
     }
@@ -53,8 +55,9 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
         Channel incoming = ctx.channel();
         for (Channel channel : channels) {
             if (channel != incoming) {
-                // print message to server
-                String message = "[" + incoming.remoteAddress() + "]" + msg + "\n";
+                // print message to server, useful for testing
+                // String message = "[" + incoming.remoteAddress() + "]" + msg + "\n";
+
                 // print message to channel
                 channel.writeAndFlush("[" + incoming.remoteAddress() + "]" + msg + "\n");
             }
@@ -69,3 +72,4 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
         ctx.close();
     }
 }
+
