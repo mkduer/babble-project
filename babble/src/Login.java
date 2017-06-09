@@ -39,22 +39,22 @@ public class Login extends Window {
 
         backgroundOrange.setBackground(new Color(235, 150, 55));
 
-        passLabel.setFont(new Font("Ubuntu", Font.BOLD, 36));
+        passLabel.setFont(new Font("Ubuntu", 3, 36));
         passLabel.setText("Password");
         passLabel.setHorizontalTextPosition(SwingConstants.LEFT);
 
-        userLabel.setFont(new Font("Ubuntu", Font.BOLD, 36));
+        userLabel.setFont(new Font("Ubuntu", 3, 36));
         userLabel.setText("Username");
         userLabel.setHorizontalTextPosition(SwingConstants.LEFT);
 
-        userField.setFont(new Font("Ubuntu", Font.BOLD, 36));
+        userField.setFont(new Font("Ubuntu", 3, 36));
         userField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 userFieldActionPerformed(evt);
             }
         });
 
-        passField.setFont(new Font("Ubuntu", Font.BOLD, 36));
+        passField.setFont(new Font("Ubuntu", 3, 36));
         passField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 passFieldActionPerformed(evt);
@@ -71,7 +71,7 @@ public class Login extends Window {
             }
         });
 
-        loginButton.setFont(new Font("Ubuntu", Font.PLAIN, 36));
+        loginButton.setFont(new Font("Ubuntu", Font.BOLD, 36));
         loginButton.setForeground(new Color(235, 121, 22));
         loginButton.setText("Login");
         loginButton.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED, null, new Color(214, 99, 25), null, null));
@@ -212,12 +212,4 @@ public class Login extends Window {
         }
         return valid;
     }
-
-    /*  // TODO: allow enter key to quickly login (add as for Send in chat as well)
-    public void keyPressed(KeyEvent e) {
-        if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-        }
-    }
-    */
-
 }

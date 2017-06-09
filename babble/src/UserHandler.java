@@ -36,7 +36,7 @@ public class UserHandler extends ChannelInboundHandlerAdapter {
     // Overrides method in ChannelInboundHandler (netty class)
     // print any received messages to the console
     private void channelRoom() {
-        room = new Chat(Window.username); // TODO: name necessary?
+        room = new Chat(Window.username);
         try {
             room.create();
         } catch (Exception e) {

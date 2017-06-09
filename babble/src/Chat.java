@@ -1,6 +1,7 @@
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.sql.*;
 import java.util.logging.*;
 
@@ -44,7 +45,7 @@ public class Chat extends Window {
         jScrollPane2 = new JScrollPane();
         chat = new JTextArea("Welcome " + this.name + "!\n\n",5,20);
         jScrollPane3 = new JScrollPane();
-        friends = new JTextArea(this.name + "'s friends:\n",5, 20);
+        friends = new JTextArea("friends:\n",5, 20);
         logoutButton = new JButton("Logout");
 
         backgroundOrange.setBackground(new Color(235, 150, 55));
@@ -53,7 +54,7 @@ public class Chat extends Window {
         sendButton.setForeground(new Color(47, 167, 137));
         sendButton.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED, null, new Color(214, 99, 25), null, null));
         sendButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            public void actionPerformed(ActionEvent evt) {
                 sendButtonActionPerformed(evt);
             }
         });
