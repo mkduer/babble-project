@@ -1,7 +1,8 @@
 ## Project Report
 This is an overview of how to run Babble Chat and details the successfully implemented features and problems that were encountered (as well as solutions or workarounds for the latter). All of the code and documentation is available in my Git Repository.
 
-To run Babble Chat, go to [https://github.com/michelleduer/cs300-project] and clone the repository. Ensure you have the correct libraries installed for testing (hamcrest-core-1.3.jar, junit.jar, junit-4.12.jar), the database (mysql-connector-java-5.1.42-bin.jar), and netty (netty-all-4.1.9.Final.jar) available on the [netty website](http://netty.io/). Others may already be available in your IDE’s library directory. The main methods are found in the Server class, which must be compiled and run in order to get a network created where clients can connect. Next, compile and run one or more instances of the User class. I personally used Intellij IDEA to run and compile the application. You will have to register a unique account to access the chat room.
+To run Babble Chat, go to https://github.com/michelleduer/cs300-project and clone the repository. Ensure you have the correct libraries installed for testing (hamcrest-core-1.3.jar, junit.jar, junit-4.12.jar), the database (mysql-connector-java-5.1.42-bin.jar), and netty (netty-all-4.1.9.Final.jar) available on the [netty website](http://netty.io/). Others may already be available in your IDE’s library directory. The main methods are found in the Server class, which must be compiled and run in order to get a network created where clients can connect. Next, compile and run one or more instances of the User class. I personally used Intellij IDEA to run and compile the application. You will have to register a unique account to access the chat room.
+
 
 | Overall features and project requirements that were implemented |
 | ---------------------------------------------------------------|
@@ -13,6 +14,7 @@ To run Babble Chat, go to [https://github.com/michelleduer/cs300-project] and cl
 | unit testing |
 | version control: git |
 | project report |
+
 
 The biggest challenge with setting up the Netty Server and User classes was getting enough of an understanding to implement the network. This included research, Netty tutorials, downloading the netty-all library, linking the correct library and figuring out how to get the clients to speak to one another (a frustrating hiccup that was resolved by using the writeAndFush method rather than the write). When running the Server and User, all users are alerted to new logins and logouts by other Users. Netty scales quickly and smoothly from one-to-one communication up to one-to-many communication – this wasn’t implemented perfectly, but the communication in all scenarios does work.
 
